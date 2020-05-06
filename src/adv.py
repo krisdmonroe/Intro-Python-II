@@ -49,41 +49,43 @@ player = Player("Kris", room['outside'])
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
-print(f"Current Room is {player.currentRoom.name}, Description -{player.currentRoom.description}-")
 
 
-user = input("[n] North, [e] East, [s] South [w] West")
+while True:  
+    user = input("[n] North, [e] East, [s] South [w] West")
+    if user == 'n':
+        if player.currentRoom.n_to:
+            print("Moved North")
+            player.currentRoom = player.currentRoom.n_to
+            print(f"Current Room is {player.currentRoom.name}, Description -{player.currentRoom.description}-") 
+        else:
+            print("Cannot go that way")
 
-if user == 'n':
-    if player.currentRoom.n_to:
-        print("Moved North")
-        player.currentRoom = player.currentRoom.n_to
-    else:
-        print("Cannot go that way")
+    if user == 'e':
+        if player.currentRoom.e_to:
+            print("Moved East")
+            player.currentRoom = player.currentRoom.e_to
+            print(f"Current Room is {player.currentRoom.name}, Description -{player.currentRoom.description}-") 
+        else:
+            print("Cannot go that way")
 
-if user == 'e':
-    if player.currentRoom.e_to:
-        print("Moved East")
-        player.currentRoom = player.currentRoom.e_to
-    else:
-        print("Cannot go that way")
+    if user == 's':
+        if player.currentRoom.s_to:
+            print("Moved South")
+            player.currentRoom = player.currentRoom.s_to
+            print(f"Current Room is {player.currentRoom.name}, Description -{player.currentRoom.description}-") 
+        else:
+            print("Cannot go that way")
 
-if user == 's':
-    if player.currentRoom.s_to:
-        print("Moved South")
-        player.currentRoom = player.currentRoom.s_to
-    else:
-        print("Cannot go that way")
+    if user == 'w':
+        if player.currentRoom.w_to:
+            print("Moved West")
+            player.currentRoom = player.currentRoom.w_to
+            print(f"Current Room is {player.currentRoom.name}, Description -{player.currentRoom.description}-") 
+        else:
+            print("Cannot go that way")
 
-if user == 'w':
-    if player.currentRoom.w_to:
-        print("Moved West")
-        player.currentRoom = player.currentRoom.w_to
-    else:
-        print("Cannot go that way")
+    if user == 'q':
+        print('Farewell Adventurerer')
+        break
 
-if user == 'q':
-    print('Farewell Adventurerer')
-
-print(f"Current Room is {player.currentRoom.name},\n Description -{player.currentRoom.description}-")
-user = input("[n] North, [e] East, [s] South [w] West")

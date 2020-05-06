@@ -38,7 +38,7 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-Player("Kris", room['outside'])
+player = Player("Kris", room['outside'])
 # Write a loop that:
 #
 # * Prints the current room name
@@ -49,47 +49,41 @@ Player("Kris", room['outside'])
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
-class UserInterface:
-    def __init__(self, currentRoom):
-        self.currentRoom = currentRoom
-    def __str__(self):
-        return f"{self.currentRoom.name}, {self.currentRoom.description}"
+print(f"Current Room is {player.currentRoom.name}, Description -{player.currentRoom.description}-")
+
 
 user = input("[n] North, [e] East, [s] South [w] West")
 
-if user == "n" and room['outside']:
-    print(UserInterface(room['foyer']))
-else:
-    print("Error User Not allowed to move there")
-    print(UserInterface(room['outside']))
+if user == 'n':
+    if player.currentRoom.n_to:
+        print("Moved North")
+        player.currentRoom = player.currentRoom.n_to
+    else:
+        print("Cannot go that way")
 
-if user == "s" and room['foyer']:
-    print(UserInterface(room['outside']))
-elif user == 'n' and room['foyer']:
-    print(UserInterface(room['overlook']))
-elif user == 'e' and room['foyer']:
-    print(UserInterface(room['narrow']))
-else:
-    print("Error User Not allowed to move there")
-    print(UserInterface(room['foyer']))
+if user == 'e':
+    if player.currentRoom.e_to:
+        print("Moved East")
+        player.currentRoom = player.currentRoom.e_to
+    else:
+        print("Cannot go that way")
 
-# if user == "s" and room['overlook']:
-#     print(UserInterface(room['foyer']))
-# else:
-#     print("Error User Not allowed to move there")
-#     print(UserInterface(room['overlook']))
+if user == 's':
+    if player.currentRoom.s_to:
+        print("Moved South")
+        player.currentRoom = player.currentRoom.s_to
+    else:
+        print("Cannot go that way")
 
-# if user == "w" and room['narrow']:
-#     print(UserInterface(room['foyer']))
-# elif user == 'n' and room['foyer']:
-#     print(UserInterface(room['treasure']))
-# else:
-#     print("Error User Not allowed to move there")
-#     print(UserInterface(room['narrow']))
+if user == 'w':
+    if player.currentRoom.w_to:
+        print("Moved West")
+        player.currentRoom = player.currentRoom.w_to
+    else:
+        print("Cannot go that way")
 
-# if user == "s" and room['treasure']:
-#     print(UserInterface(room['narrow']))
-# else:
-#     print("Error User Not allowed to move there")
-#     print(UserInterface(room['treasure']))
+if user == 'q':
+    print('Farewell Adventurerer')
 
+print(f"Current Room is {player.currentRoom.name},\n Description -{player.currentRoom.description}-")
+user = input("[n] North, [e] East, [s] South [w] West")

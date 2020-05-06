@@ -4,5 +4,4 @@ class Player:
     def __init__(self, name, currentRoom):
         self.name = name
         self.currentRoom = currentRoom
-    def __str__(self):
-        return f"{self.name} is currently in the {self.currentRoom.name}"
+    

@@ -65,29 +65,28 @@ player.getItem(item['sword'])
 
 while True:  
     user = input("[n] North, [e] East, [s] South [w] West, --Inventory[i]--")
+    # if the user inputs two words then..
+    if len(user.split()) == 2:
+        handleActions = user.split()
+        # Checks to see if user input had get or take and or drop position 0
+        if handleActions[0] == 'get' or 'take':
+            # Checks the second word for an item that exists
+            itemCheck = item[handleActions[1]]
+            # if item from get or take is in current room then...
+            if itemCheck in player.currentRoom.items:
+            # add that item into player inventory
+                player.getItem(itemCheck)
+                player.currentRoom.removeItem(itemCheck)
+            else:
+                print("No item here")
 
-    # handleActions = user.split()
-    # print(handleActions)
-
-    # Checks to see if user input had get or take and or drop position 0
-    # if handleActions[0] == 'get' or 'take':
-    #     # Checks the second word for an item that exists
-    #     itemCheck = item[handleActions[1]]
-    #     # if item from get or take is in current item then...
-    #     if itemCheck in player.currentRoom.items:
-    #     # add that item into player inventory
-    #         player.getItem(itemCheck)
-    #         player.currentRoom.removeItem(itemCheck)
-    #     else:
-    #         print("No item here")
-
-    # if handleActions[0] == 'drop':
-    #     dropCheck = item[handleActions[1]]
-    #     if dropCheck in player.inventory:
-    #         player.dropItem(dropCheck)
-    #         player.currentRoom.insertItem(dropCheck)
-    #     else:
-    #         print("Cannot drop that item")
+        elif handleActions[0] == 'drop':
+            dropCheck = item[handleActions[1]]
+            if dropCheck in player.inventory:
+                player.dropItem(dropCheck)
+                player.currentRoom.insertItem(dropCheck)
+            else:
+                print("Cannot drop that item")
 
     if user == 'n':
         if player.currentRoom.n_to:

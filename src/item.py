@@ -4,10 +4,10 @@ class Item:
         self.description = description
 
     def onTake(self, item):
-        print("You have picked up {item}}")
+        print("You have picked up {self.item}")
 
     def onDrop(self, item):
-        print("You have droped {item}}")
+        print("You have droped {self.item}")
 
     def __str__(self):
         return f"{self.name}, {self.description}"

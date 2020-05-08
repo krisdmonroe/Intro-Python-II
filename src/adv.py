@@ -1,5 +1,6 @@
 from room import Room
 from player import Player
+from item import Item
 # Declare all the rooms
 
 room = {
@@ -33,12 +34,23 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+# Add items
+
+item = {
+    'torch': Item("Torch", "You can now see"),
+    'sword': Item("Sword", "Great Sword")
+}
+
+room['outside'].insertItem(item['torch'])
+room['foyer'].insertItem(item['sword'])
+
 #
 # Main
 #
 
 # Make a new player object that is currently in the 'outside' room.
 player = Player("Kris", room['outside'])
+player.getItem(item['sword'])
 # Write a loop that:
 #
 # * Prints the current room name
@@ -52,12 +64,37 @@ player = Player("Kris", room['outside'])
 
 
 while True:  
-    user = input("[n] North, [e] East, [s] South [w] West")
+    user = input("[n] North, [e] East, [s] South [w] West, --Inventory[i]--")
+
+    # handleActions = user.split()
+    # print(handleActions)
+
+    # Checks to see if user input had get or take and or drop position 0
+    # if handleActions[0] == 'get' or 'take':
+    #     # Checks the second word for an item that exists
+    #     itemCheck = item[handleActions[1]]
+    #     # if item from get or take is in current item then...
+    #     if itemCheck in player.currentRoom.items:
+    #     # add that item into player inventory
+    #         player.getItem(itemCheck)
+    #         player.currentRoom.removeItem(itemCheck)
+    #     else:
+    #         print("No item here")
+
+    # if handleActions[0] == 'drop':
+    #     dropCheck = item[handleActions[1]]
+    #     if dropCheck in player.inventory:
+    #         player.dropItem(dropCheck)
+    #         player.currentRoom.insertItem(dropCheck)
+    #     else:
+    #         print("Cannot drop that item")
+
     if user == 'n':
         if player.currentRoom.n_to:
             print("Moved North")
+            # Changes current room to the room player is going to
             player.currentRoom = player.currentRoom.n_to
-            print(f"Current Room is {player.currentRoom.name}, Description -{player.currentRoom.description}-") 
+            print(f"Current Room is {player.currentRoom.name}, Description -{player.currentRoom.description}-")
         else:
             print("Cannot go that way")
 
@@ -65,7 +102,7 @@ while True:
         if player.currentRoom.e_to:
             print("Moved East")
             player.currentRoom = player.currentRoom.e_to
-            print(f"Current Room is {player.currentRoom.name}, Description -{player.currentRoom.description}-") 
+            print(f"Current Room is {player.currentRoom.name}, Description -{player.currentRoom.description}-")
         else:
             print("Cannot go that way")
 
@@ -84,7 +121,11 @@ while True:
             print(f"Current Room is {player.currentRoom.name}, Description -{player.currentRoom.description}-") 
         else:
             print("Cannot go that way")
-
+    # Prints the player inventory if key i is pressed
+    if user == 'i':
+        for i in player.inventory:
+            print(i)
+    # Breaks the loop and ends the game
     if user == 'q':
         print('Farewell Adventurerer')
         break
